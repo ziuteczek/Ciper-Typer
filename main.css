@@ -1,0 +1,233 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 
+ * https://github.com/jtrost/Complete-CSS-Reset
+*/
+
+article,
+aside,
+audio,
+command,
+datagrid,
+details,
+dialog,
+embed,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+video,
+wbr {
+  display: block;
+}
+bdi,
+figcaption,
+keygen,
+mark,
+meter,
+progress,
+rp,
+rt,
+ruby,
+time {
+  display: inline;
+}
+acronym,
+applet,
+big,
+center,
+dir,
+font,
+frame,
+frameset,
+noframes,
+s,
+strike,
+tt,
+u,
+xmp {
+  display: none;
+}
+a,
+abbr,
+area,
+article,
+aside,
+audio,
+b,
+bdo,
+blockquote,
+body,
+button,
+canvas,
+caption,
+cite,
+code,
+col,
+colgroup,
+command,
+datalist,
+dd,
+del,
+details,
+dialog,
+dfn,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+head,
+header,
+hgroup,
+hr,
+html,
+i,
+iframe,
+img,
+input,
+ins,
+keygen,
+kbd,
+label,
+legend,
+li,
+map,
+mark,
+menu,
+meter,
+nav,
+noscript,
+object,
+ol,
+optgroup,
+option,
+output,
+p,
+param,
+pre,
+progress,
+q,
+rp,
+rt,
+ruby,
+samp,
+section,
+select,
+small,
+span,
+strong,
+sub,
+sup,
+table,
+tbody,
+td,
+textarea,
+tfoot,
+th,
+thead,
+time,
+tr,
+ul,
+var,
+video {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  vertical-align: baseline;
+  z-index: 1;
+}
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a {
+  color: inherit;
+}
+:root {
+  --bg-color: #f4f0f0;
+  --primary: #776b5d;
+  --secoundary: #b0a695;
+  --tertiary: #ebe3d5;
+}
+html {
+  font-size: 62.5%;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+body {
+  display: grid;
+  font-family: "Nova Square", sans-serif;
+  background-color: var(--bg-color);
+  grid-template-areas:
+    "nav nav nav"
+    "menu main main"
+    "footer footer footer";
+}
+nav {
+  width: 100%;
+  margin-top: 0.5em;
+  align-self: flex-start;
+  grid-area: nav;
+}
+nav h1 {
+  width: fit-content;
+  font-size: 3rem;
+  margin-left: 3em;
+}
+main {
+    grid-area: main;
+}
