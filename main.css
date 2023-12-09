@@ -234,3 +234,9 @@ main {
 .text {
   font-size: 5rem;
 }
+.incorrect-letter {
+ color: rgb(199, 56, 31); 
+}
+.correct-letter {
+  color: #666666;
+}

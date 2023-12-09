@@ -1,5 +1,8 @@
 "use strict";
 const textEl = document.querySelector(".text");
+const timeEl = document.querySelector(".time");
+
+const isLetter = (sign) => /^[a-zA-Z\s]$/.test(sign);
 
 const randIndex = (arrLength) => Math.floor(Math.random() * arrLength);
 function generateText(length, ...letters) {
@@ -15,23 +18,37 @@ function generateText(length, ...letters) {
   return text;
 }
 async function startGame(gameContainer) {
-  const text = generateText(20, "k", "l", "m").map((e) => {
+  const quizLength = 20;
+  const letters = ["k", "l", "m"];
+  let mistakeCount = 0;
+  let letterToGuess = 0;
+  let time = 0;
+  const text = generateText(quizLength, ...letters).map((e) => {
     const el = document.createElement("span");
     el.textContent = e;
     gameContainer.append(el);
     return el;
   });
-  let letterToGuess = 0;
-  while (true) {
+  const timeInterval = setInterval(
+    () => (timeEl.textContent = `${Math.trunc(++time / 10)}.${time % 10}`),
+    100
+  );
+  while (letterToGuess < quizLength) {
     const key = await getKey();
     if (key === text[letterToGuess].textContent) {
       if (key === " ") {
         text[letterToGuess].textContent = "_";
       }
-      text[letterToGuess].style.color = "red";
+      text[letterToGuess].classList.add("correct-letter");
       letterToGuess++;
+    } else if (isLetter(key)) {
+      text[letterToGuess].classList.add("incorrect-letter");
+      mistakeCount++;
     }
   }
+  clearInterval(timeInterval);
+  console.log(mistakeCount);
+  console.log(Number(timeEl.textContent));
 }
 const getKey = () => {
   return new Promise((resolve) => {
