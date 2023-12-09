@@ -231,3 +231,6 @@ nav h1 {
 main {
     grid-area: main;
 }
+.text {
+  font-size: 5rem;
+}
