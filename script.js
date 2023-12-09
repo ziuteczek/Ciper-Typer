@@ -1,7 +1,6 @@
 "use strict";
 const textEl = document.querySelector(".text");
 
-
 const randIndex = (arrLength) => Math.floor(Math.random() * arrLength);
 function generateText(length, ...letters) {
   let text = [];
@@ -15,14 +14,31 @@ function generateText(length, ...letters) {
   }
   return text;
 }
-function startGame(gameContainer) {
+async function startGame(gameContainer) {
   const text = generateText(20, "k", "l", "m").map((e) => {
     const el = document.createElement("span");
     el.textContent = e;
     gameContainer.append(el);
     return el;
   });
-  letterToGuess = 0;
-  
+  let letterToGuess = 0;
+  while (true) {
+    const key = await getKey();
+    if (key === text[letterToGuess].textContent) {
+      if (key === " ") {
+        text[letterToGuess].textContent = "_";
+      }
+      text[letterToGuess].style.color = "red";
+      letterToGuess++;
+    }
+  }
 }
+const getKey = () => {
+  return new Promise((resolve) => {
+    document.addEventListener("keyup", (e) => {
+      resolve(e.key);
+    });
+  });
+};
 // #f4f0f0
+startGame(textEl);
