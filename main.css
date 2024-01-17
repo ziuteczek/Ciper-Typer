@@ -216,6 +216,9 @@ body {
     "nav nav nav"
     "menu main main"
     "footer footer footer";
+  grid-template-columns: 200px auto auto;
+  grid-template-rows: 64px 1fr 30px;
+  min-height: 100svh;
 }
 nav {
   width: 100%;
@@ -231,8 +234,44 @@ nav h1 {
 main {
     grid-area: main;
 }
+footer {
+  grid-area: footer;
+  background-color:#242424;
+  line-height: 30px;
+}
+footer p {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+}
+menu {
+  grid-area: menu;
+}
+.menu-title {
+  font-size: 2.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+.menu-option {
+  font-size: 3rem;
+  margin-left: .5em;
+}
+.menu-icon {
+  height:1em;
+  margin-bottom: -3px;
+}
+.menu-text {
+  display: inline-block;
+  transition: transform .3s;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.menu-icon:hover ~ .menu-text {
+  transform: scaleX(1);
+}
 .text {
   font-size: 5rem;
+  word-wrap: break-word;
 }
 .incorrect-letter {
  color: rgb(199, 56, 31); 
@@ -240,21 +279,7 @@ main {
 .correct-letter {
   color: #666666;
 }
-.modal {
-  position: absolute;
-  background-color: #fff;
-  padding: 4em 8em;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
-  border-radius: 25px;
-}
-.modal h3 {
-  font-size: 6rem;
-  text-align: center;
-}
-.modal p{
-  font-size: 4rem;
+.time {
+  font-size: 2.5rem;
   text-align: center;
 }
