@@ -276,7 +276,7 @@ nav {
   word-wrap: break-word;
 }
 .incorrect-letter {
-  color: rgb(199, 56, 31);
+  color: #c7381f;
 }
 .correct-letter {
   color: #666666;

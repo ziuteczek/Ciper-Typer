@@ -5,7 +5,6 @@ const timeEl = document.querySelector('.time')
 async function startGame(gameContainer) {
   const quizLength = 20
   const letters = ['k', 'l', 'm']
-  let mistakeCount = 0
   let letterToGuess = 0
   let time = 0
 
@@ -23,24 +22,26 @@ async function startGame(gameContainer) {
 
   while (letterToGuess < quizLength) {
     const key = await getKey()
-    if (
-      key === text[letterToGuess].textContent ||
-      (key === ' ' && text[letterToGuess].textContent === '_')
-    ) {
-      text[letterToGuess].classList.add('correct-letter')
-      letterToGuess++
-    } else if (key === 'Backspace') {
-      if (text[letterToGuess - 1].classList.contains('incorrect-letter')) {
-        text[letterToGuess - 1].classList.remove('incorrect-letter')
-        mistakeCount--
-      } else {
-        text[letterToGuess - 1].classList.remove('correct-letter')
-      }
-      letterToGuess--
-    } else if (isLetter(key)) {
-      text[letterToGuess].classList.add('incorrect-letter')
-      letterToGuess++
-      mistakeCount++
+    switch (key) {
+      case text[letterToGuess].textContent:
+      case ' ' && text[letterToGuess].textContent === '_':
+        text[letterToGuess].classList.add('correct-letter')
+        letterToGuess++
+        break
+      case 'Backspace':
+        if (letterToGuess === 0) break
+        if (text[letterToGuess - 1].classList.contains('incorrect-letter')) {
+          text[letterToGuess - 1].classList.remove('incorrect-letter')
+        } else {
+          text[letterToGuess - 1].classList.remove('correct-letter')
+        }
+        letterToGuess--
+        break
+      default:
+        if (isLetter(key)) {
+          text[letterToGuess].classList.add('incorrect-letter')
+          letterToGuess++
+        }
     }
   }
   clearInterval(timeInterval)
