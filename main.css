@@ -220,12 +220,22 @@ body {
   grid-template-rows: 64px 1fr 30px;
   min-height: 100svh;
 }
+.mobile-alert {
+  position: absolute;
+  font-size: 40px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 1000000;
+}
 main {
   grid-area: main;
 }
 footer {
   grid-area: footer;
-  background-color: #242424;
+  background-color: #222831;
   line-height: 30px;
 }
 footer p {
@@ -233,9 +243,15 @@ footer p {
   font-size: 2rem;
   text-align: center;
 }
+header {
+  grid-area: nav;
+  background-color: #222831;
+}
 nav {
   grid-area: menu;
-  background-color: var(--secoundary);
+  background-color: #393E46;
+  background-color: #e2e2e2;
+  color: #EEE;
   height: 100%;
 }
 .menu-title {
