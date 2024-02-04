@@ -180,7 +180,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -210,33 +210,22 @@ html {
 }
 body {
   display: grid;
-  font-family: "Nova Square", sans-serif;
+  font-family: 'Nova Square', sans-serif;
   background-color: var(--bg-color);
   grid-template-areas:
-    "nav nav nav"
-    "menu main main"
-    "footer footer footer";
+    'nav nav nav'
+    'menu main main'
+    'footer footer footer';
   grid-template-columns: 200px auto auto;
   grid-template-rows: 64px 1fr 30px;
   min-height: 100svh;
 }
-nav {
-  width: 100%;
-  margin-top: 0.5em;
-  align-self: flex-start;
-  grid-area: nav;
-}
-nav h1 {
-  width: fit-content;
-  font-size: 3rem;
-  margin-left: 3em;
-}
 main {
-    grid-area: main;
+  grid-area: main;
 }
 footer {
   grid-area: footer;
-  background-color:#242424;
+  background-color: #242424;
   line-height: 30px;
 }
 footer p {
@@ -244,8 +233,10 @@ footer p {
   font-size: 2rem;
   text-align: center;
 }
-menu {
+nav {
   grid-area: menu;
+  background-color: var(--secoundary);
+  height: 100%;
 }
 .menu-title {
   font-size: 2.5rem;
@@ -254,27 +245,22 @@ menu {
 }
 .menu-option {
   font-size: 3rem;
-  margin-left: .5em;
+  margin-left: 0.5em;
+  text-wrap:nowrap;
 }
 .menu-icon {
-  height:1em;
+  height: 1em;
   margin-bottom: -3px;
 }
 .menu-text {
   display: inline-block;
-  transition: transform .3s;
-  transform-origin: left;
-  transform: scaleX(0);
-}
-.menu-icon:hover ~ .menu-text {
-  transform: scaleX(1);
 }
 .text {
   font-size: 5rem;
   word-wrap: break-word;
 }
 .incorrect-letter {
- color: rgb(199, 56, 31); 
+  color: rgb(199, 56, 31);
 }
 .correct-letter {
   color: #666666;

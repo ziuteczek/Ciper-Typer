@@ -8,6 +8,7 @@ async function startGame(gameContainer) {
   let mistakeCount = 0
   let letterToGuess = 0
   let time = 0
+
   const textArr = generateText(quizLength, ...letters)
   const text = textArr.map(e => {
     const el = document.createElement('span')
@@ -19,6 +20,7 @@ async function startGame(gameContainer) {
     () => (timeEl.textContent = `${Math.trunc(++time / 10)}.${time % 10}`),
     100
   )
+
   while (letterToGuess < quizLength) {
     const key = await getKey()
     if (
@@ -27,8 +29,16 @@ async function startGame(gameContainer) {
     ) {
       text[letterToGuess].classList.add('correct-letter')
       letterToGuess++
+    } else if (
+      key === 'Backspace' &&
+      text[letterToGuess - 1].classList.contains('incorrect-letter')
+    ) {
+      text[letterToGuess - 1].classList.remove('incorrect-letter')
+      mistakeCount--
+      letterToGuess--
     } else if (isLetter(key)) {
       text[letterToGuess].classList.add('incorrect-letter')
+      letterToGuess++
       mistakeCount++
     }
   }
@@ -44,7 +54,7 @@ async function startGame(gameContainer) {
 }
 const getKey = () => {
   return new Promise(resolve => {
-    document.addEventListener('keypress', e => {
+    document.addEventListener('keydown', e => {
       resolve(e.key)
     })
   })
