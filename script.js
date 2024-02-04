@@ -29,12 +29,13 @@ async function startGame(gameContainer) {
     ) {
       text[letterToGuess].classList.add('correct-letter')
       letterToGuess++
-    } else if (
-      key === 'Backspace' &&
-      text[letterToGuess - 1].classList.contains('incorrect-letter')
-    ) {
-      text[letterToGuess - 1].classList.remove('incorrect-letter')
-      mistakeCount--
+    } else if (key === 'Backspace') {
+      if (text[letterToGuess - 1].classList.contains('incorrect-letter')) {
+        text[letterToGuess - 1].classList.remove('incorrect-letter')
+        mistakeCount--
+      } else {
+        text[letterToGuess - 1].classList.remove('correct-letter')
+      }
       letterToGuess--
     } else if (isLetter(key)) {
       text[letterToGuess].classList.add('incorrect-letter')
