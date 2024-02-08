@@ -2,13 +2,15 @@
 const textEl = document.querySelector('.text')
 const timeEl = document.querySelector('.time')
 
-async function startGame(gameContainer) {
-  const quizLength = 20
-  const letters = ['k', 'l', 'm']
+async function startGame(gameContainer, gameText = ['k', 'l', 'm']) {
+  const quizLength = gameText.length
   let letterToGuess = 0
   let time = 0
 
-  const textArr = generateText(quizLength, ...letters)
+  const textArr =
+    typeof gameText === 'string'
+      ? gameText.split('')
+      : generateText(50, ...gameText)
   const text = textArr.map(e => {
     const el = document.createElement('span')
     el.textContent = e
@@ -20,11 +22,13 @@ async function startGame(gameContainer) {
     100
   )
 
-  while (letterToGuess < quizLength) {
+  while (letterToGuess < 50) {
+    console.log(quizLength)
     const key = await getKey()
     switch (key) {
+      case ' ':
+        if (text[letterToGuess].textContent !== '_') break
       case text[letterToGuess].textContent:
-      case ' ' && text[letterToGuess].textContent === '_':
         text[letterToGuess].classList.add('correct-letter')
         letterToGuess++
         break
@@ -52,11 +56,12 @@ async function startGame(gameContainer) {
       0
     ) + 1
   const wpm = Math.round((words / totalTime) * 100)
-  // endGame(totalTime, words, wpm)
+  // return gameScore
 }
 const getKey = () => {
   return new Promise(resolve => {
     document.addEventListener('keydown', e => {
+      if (e.key === 'backspace') e.preventDefault()
       resolve(e.key)
     })
   })
