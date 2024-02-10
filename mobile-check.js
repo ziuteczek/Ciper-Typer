@@ -8,5 +8,4 @@ if (
     'afterbegin',
     `<div class="mobile-alert"><p>Please use pc ❤️</p></div>`
   )
-  document.body.style.width = `${screen.width}px`
 }

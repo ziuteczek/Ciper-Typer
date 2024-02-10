@@ -2,15 +2,16 @@
 const textEl = document.querySelector('.text')
 const timeEl = document.querySelector('.time')
 
-async function startGame(gameContainer, gameText = ['k', 'l', 'm']) {
+async function startGame(gameContainer, gameText = 'gowno elo zelo',length=20) {
   const quizLength = gameText.length
   let letterToGuess = 0
   let time = 0
+  const gameLength = typeof(gameText) === 'string' ? gameText.length : length 
 
   const textArr =
     typeof gameText === 'string'
-      ? gameText.split('')
-      : generateText(50, ...gameText)
+      ? gameText.split('').map(c=>c===' ' ? '_' : c)
+      : generateText(gameLength, ...gameText)
   const text = textArr.map(e => {
     const el = document.createElement('span')
     el.textContent = e
@@ -22,32 +23,8 @@ async function startGame(gameContainer, gameText = ['k', 'l', 'm']) {
     100
   )
 
-  while (letterToGuess < 50) {
-    console.log(quizLength)
-    const key = await getKey()
-    switch (key) {
-      case ' ':
-        if (text[letterToGuess].textContent !== '_') break
-      case text[letterToGuess].textContent:
-        text[letterToGuess].classList.add('correct-letter')
-        letterToGuess++
-        break
-      case 'Backspace':
-        if (letterToGuess === 0) break
-        if (text[letterToGuess - 1].classList.contains('incorrect-letter')) {
-          text[letterToGuess - 1].classList.remove('incorrect-letter')
-        } else {
-          text[letterToGuess - 1].classList.remove('correct-letter')
-        }
-        letterToGuess--
-        break
-      default:
-        if (isLetter(key)) {
-          text[letterToGuess].classList.add('incorrect-letter')
-          letterToGuess++
-        }
-    }
-  }
+  await GameLoop()
+
   clearInterval(timeInterval)
   const totalTime = Number(timeEl.textContent)
   const words =
@@ -56,6 +33,41 @@ async function startGame(gameContainer, gameText = ['k', 'l', 'm']) {
       0
     ) + 1
   const wpm = Math.round((words / totalTime) * 100)
+
+
+  async function GameLoop() {
+    while (letterToGuess < gameLength) {
+      console.log(quizLength)
+      const key = await getKey()
+
+      switch (key) {
+        case ' ':
+          if (text[letterToGuess].textContent !== '_') break
+        case text[letterToGuess].textContent:
+          correctAnswer()
+          break
+        case 'Backspace':
+          if (letterToGuess === 0) break
+          if (text[letterToGuess - 1].classList.contains('incorrect-letter')) {
+            text[letterToGuess - 1].classList.remove('incorrect-letter')
+          } else {
+            text[letterToGuess - 1].classList.remove('correct-letter')
+          }
+          letterToGuess--
+          break
+        default:
+          if (isLetter(key)) {
+            text[letterToGuess].classList.add('incorrect-letter')
+            letterToGuess++
+          }
+      }
+    }
+
+    function correctAnswer() {
+      text[letterToGuess].classList.add('correct-letter')
+      letterToGuess++
+    }
+  }
   // return gameScore
 }
 const getKey = () => {
@@ -66,6 +78,7 @@ const getKey = () => {
     })
   })
 }
+
 const isLetter = sign => /^[a-zA-Z\s]$/.test(sign)
 
 const randIndex = arrLength => Math.floor(Math.random() * arrLength)
